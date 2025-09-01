@@ -1,6 +1,6 @@
 {
   "name": "indentation",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "dedent with tagged template literal and related utilities",
   "type": "module",
   "main": "index.js",
