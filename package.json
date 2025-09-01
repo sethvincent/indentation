@@ -13,8 +13,7 @@
   },
   "devDependencies": {
     "@dxv/cli": "^3.0.0",
-    "brittle": "^3.18.0",
-    "dedent": "^1.6.0"
+    "brittle": "^3.18.0"
   },
   "homepage": "https://github.com/sethvincent/indentation#readme",
   "bugs": {

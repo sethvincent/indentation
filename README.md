@@ -50,7 +50,7 @@ console.log(array)
 // ]
 
 
-// Other popular dedent libraries will typically output soemthing like this:
+// Other popular dedent libraries will typically output something like this:
 //
 // [
 // {
