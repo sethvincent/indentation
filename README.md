@@ -1,6 +1,6 @@
 # indentation
 
-dedent with tagged template literal and small helpers.
+A little set of tools for managing indentation of multiline strings.
 
 ## Install
 
@@ -62,7 +62,7 @@ console.log(array)
 // ]
 ```
 
-Objects are pretty-printed with current indent:
+Objects are pretty-printed:
 
 ```js
 import { dedent } from 'indentation'
@@ -73,13 +73,12 @@ console.log(dedent`
   const data = ${data}
 `)
 
-// data:
-//   {
-//     "a": 1,
-//     "b": {
-//       "c": 2
-//     }
+// const data = {
+//   "a": 1,
+//   "b": {
+//     "c": 2
 //   }
+// }
 ```
 
 Indent the first line of a string:
@@ -118,6 +117,10 @@ console.log(upper`
   cool
     right?
 `)
+// THIS IS
+//     SOME TEXT
+// COOL
+//   RIGHT?
 ```
 
 The `dedenter` function composes the `getIndentLengths`, `dedentStrings`, and `interpolate` functions. You can create a similar composition of those functions that better fits your use case if needed.
