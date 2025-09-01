@@ -1,3 +1,11 @@
+/**
+ * Regular expressions used throughout the dedent process
+ * @property {RegExp} newlineWithIndent - Matches newlines followed by indentation
+ * @property {RegExp} closingIndentation - Matches indentation at the end of a line or string
+ * @property {RegExp} newline - Matches various newline characters
+ * @property {RegExp} firstLineIndent - Matches indentation at the beginning of a string
+ * @property {RegExp} startsWithNewline - Matches strings that start with newline characters
+ */
 export const regex = Object.freeze({
   newlineWithIndent: /\n([ \t]*)/g,
   closingIndentation: /(?:^|\n)([ \t]*)$/,
@@ -6,6 +14,13 @@ export const regex = Object.freeze({
   startsWithNewline: /^[\r\n]/,
 })
 
+/**
+ * Tagged template literal function that removes common leading whitespace
+ * @param {TemplateStringsArray} parts - Template string parts
+ * @param {...*} values - Interpolated values
+ * @returns {string} Dedented string
+ * @throws {TypeError} If not called as a tagged template literal
+ */
 export function dedent (parts, ...values) {
   const strings = parts?.raw
 
@@ -16,6 +31,13 @@ export function dedent (parts, ...values) {
   return dedenter(strings, values)
 }
 
+/**
+ * Main dedent processing function
+ * @param {string[]} strings - Template string parts
+ * @param {*[]} [values=[]] - Interpolated values
+ * @param {(result: string) => string} [postprocess=(result) => (result?.trim())] - Post-processing function
+ * @returns {string} Processed and dedented string
+ */
 export function dedenter (
   strings,
   values = [],
@@ -23,10 +45,16 @@ export function dedenter (
 ) {
   const indentLengths = getIndentLengths(strings)
   const dedented = dedentStrings(strings, indentLengths)
-  const result = interpolate(dedented, values, indentLengths)
+  const result = interpolate(dedented, values)
   return postprocess(result)?.trim()
 }
 
+/**
+ * Remove common indentation from string parts
+ * @param {string[]} strings - Template string parts
+ * @param {number[]} indentLengths - Array of indentation lengths to determine minimum
+ * @returns {string[]} Dedented string parts
+ */
 export function dedentStrings (strings, indentLengths) {
   const minIndent = indentLengths.length > 0 ? Math.min(...indentLengths) : 0
   const dedentRegex = new RegExp(`\n[ \t]{${minIndent}}`, 'g')
@@ -49,11 +77,22 @@ export function dedentStrings (strings, indentLengths) {
   return dedented
 }
 
+/**
+ * Check if the remainder of a string contains only whitespace
+ * @param {string} string - String to check
+ * @param {number} afterIndentPos - Position to start checking from
+ * @returns {boolean} True if only whitespace remains
+ */
 export function onlyWhitespace (string, afterIndentPos) {
   const restOfLine = string.substring(afterIndentPos)
   return !restOfLine || regex.startsWithNewline.test(restOfLine)
 }
 
+/**
+ * Calculate indentation lengths from template strings
+ * @param {string[]} strings - Template string parts
+ * @returns {number[]} Array of indentation lengths
+ */
 export function getIndentLengths (strings) {
   const lengths = []
 
@@ -75,6 +114,12 @@ export function getIndentLengths (strings) {
   return lengths
 }
 
+/**
+ * Interpolate values into dedented strings with proper indentation
+ * @param {string[]} strings - Dedented string parts
+ * @param {*[]} values - Values to interpolate
+ * @returns {string} Final interpolated string
+ */
 export function interpolate (strings, values) {
   const parts = []
   let currentLine = ''
@@ -141,11 +186,24 @@ export function interpolate (strings, values) {
   return parts.join('')
 }
 
+/**
+ * Extract indentation from a string
+ * @param {string} string - String to extract indentation from
+ * @returns {string} Indentation characters
+ */
 export function getIndent (string) {
   const match = string.match(regex.newlineWithIndent)
   return match ? match[0].replace(regex.newline, '') : ''
 }
 
+/**
+ * Add indentation to each line of text
+ * @param {string} text - Text to indent
+ * @param {string} indentation - Indentation to add
+ * @param {Object} [options={}] - Options for indentation
+ * @param {boolean} [options.firstLine=false] - Whether to indent the first line
+ * @returns {string} Indented text
+ */
 export function indentLines (text, indentation, options = {}) {
   const { firstLine = false } = options
 

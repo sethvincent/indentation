@@ -1,4 +1,5 @@
 import { dedenter } from '../index.js'
+import { argv } from './helpers.js'
 
 export function html (parts, ...values) {
   const strings = parts?.raw
@@ -27,8 +28,9 @@ function escapeHtml (str) {
     .replace(/'/g, '&#39;')
 }
 
-if (import.meta.url === `file://${Bare.argv[1]}`) {
+if (import.meta.url === `file://${argv[1]}`) {
   const greeting = 'Hello, World!'
+
   const result = html`
     <div class="container">
       <h1>${greeting}</h1>

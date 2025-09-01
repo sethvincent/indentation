@@ -6,7 +6,15 @@ import globals from 'globals'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-    { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
+    {
+      languageOptions: {
+        globals: {
+          ...globals.browser,
+          ...globals.node,
+          Bare: false,
+        }
+      }
+    },
     pluginJs.configs.recommended,
     {
         ignores: ['types/*', 'tmp', 'sandbox'],

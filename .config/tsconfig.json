@@ -5,7 +5,6 @@
     // All JS and declaration files
     "include": [
         "../index.js",
-        "../examples/*.js"
     ],
 
     "exclude": [

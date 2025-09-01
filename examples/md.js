@@ -1,4 +1,5 @@
 import { dedenter } from '../index.js'
+import { argv } from './helpers.js'
 
 export function md (parts, ...values) {
   const strings = parts?.raw
@@ -7,7 +8,7 @@ export function md (parts, ...values) {
     throw new TypeError('md must be called as a tagged template literal')
   }
 
-  const processedValues = values.map((value, index) => {
+  const processedValues = values.map((value) => {
     if (typeof value === 'string') {
       return escapeMarkdown(value)
     }
@@ -29,7 +30,7 @@ function escapeMarkdown (str) {
     .replace(/#/g, '\\#')
 }
 
-if (import.meta.url === `file://${Bare.argv[1]}`) {
+if (import.meta.url === `file://${argv[1]}`) {
   const baseUrl = 'http://localhost:3000'
 
   const result = md`
