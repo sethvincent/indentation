@@ -1,0 +1,29 @@
+{
+  "name": "indentation",
+  "version": "0.0.0",
+  "description": "dedent with tagged template literal and related utilities",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "brittle-bare test/index.js",
+    "fmt": "dxv fmt -c .config/dprint.jsonc",
+    "lint": "dxv lint -c .config/eslint.config.js",
+    "deps": "dxv deps -c .config/.depcheckrc",
+    "type": "dxv type -c .config/tsconfig.json"
+  },
+  "devDependencies": {
+    "@dxv/cli": "^3.0.0",
+    "brittle": "^3.18.0",
+    "dedent": "^1.6.0"
+  },
+  "homepage": "https://github.com/sethvincent/indentation#readme",
+  "bugs": {
+    "url": "https://github.com/sethvincent/indentation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sethvincent/indentation.git"
+  },
+  "license": "Apache-2.0",
+  "author": "sethvincent <sethvincent@gmail.com> (https://sethvincent.com/)"
+}
